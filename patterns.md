@@ -217,10 +217,12 @@ octoenergy/
                     __init__.py  # import all "public" objects into here
                     topic1.py
                     topic2.py
+                    ...
                 operations/
                     __init__.py  # import all "public" objects into here
                     topic1.py
                     topic2.py
+                    ...
 ```
 
 This means a developer whose code needs to ask a question about the
@@ -231,3 +233,34 @@ This isn't a strict requirement - if there's a better naming convention for your
 part of the domain then use it. 
 
 Think of these modules as the _public_ API of the `$subcategory` of the domain.
+
+### Application layer file-structure conventions
+
+The application layer houses orchestration logic for application use-cases. This
+involves providing a single entry-point for interface layers to call. 
+
+```
+octoenergy/
+    application/
+        usecases/
+            $category/
+                $usecase_name/
+                    __init__.py  # import all "public" objects into here
+                    _component1.py
+                    _component2.py
+                    ...
+```
+
+Eg:
+
+```
+octoenergy/
+    application/
+        usecases/
+            comms/
+                annual_statements/
+                    __init__.py    # import all "public" objects into here
+                    _trigger.py    # responsible for spawning Celery tasks
+                    _documents.py  # responsible for building PDF documents
+                    ...
+```
